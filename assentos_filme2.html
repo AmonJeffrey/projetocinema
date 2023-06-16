@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style_assentos.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <title>Seleção de assento e checkout</title>
+  </head>
+  <header>
+    <a href="../index.html" class="logo"><i class='bx bxs-movie'></i> Cinemagic </a>
+    <div class="bx bx-menu" id="menu-icon"></div>
+    <ul class="navbar">
+        <li><a href="../index.html" class="home-active">Inicio</a></li>
+        <li><a href="../index.html">Em Cartaz</a></li>
+        <li><a href="../index.html#breve">Breve nos cinemas </a></li>
+    </ul>
+  </header>
+  <body>
+  <div class="selected_movie">
+     <img src="../img/cartaz2.jpg" alt="cartaz 2" height="450px" width="300px">
+     <h3>Os Cavaleiros do Zodíaco -<br> Saint Seiya: O Começo</h3>
+     <span>110 min | Ação</span>
+     <h3 align ="left">Sinopse:</h3>
+  <p align ="left">Quando uma divindade da guerra <br>reencarna no corpo de uma jovem garota,<br>
+    o órfão Seiya descobre que está destino a protegê-la<br>e salvar o mundo. Mas isso apenas se ele puder encarar <br> o passado e se tornar um Cavaleiro do Zodíaco.
+
+  </p>
+  </div>
+    <div class="content">
+    <div class="page-title">
+      Selecione sua poltrona:
+    </div>
+    <div class="movie-container">
+      <label> Selecione o Tipo de Ingresso:</label>
+      <select id="movie">
+        <option value="10"> Meia ▼</option>
+        <option value="20"> Inteira </option>
+      </select>
+    </select>
+      
+    <label for="ticket-type">Selecione o Horário:</label>
+    <select id="ticket-type" name="ticket-type">
+      <option >16:00hrs ▼</option>
+      <option >17:30hrs</option>
+      <option >19:30hrs</option>
+      <option >21:00hrs</option>
+    </select> 
+    </div>
+
+    <ul class="showcase">
+      <li>
+        <div class="seat"></div>
+        <small>Disponivel</small>
+      </li>
+      <li>
+        <div class="seat selected"></div>
+        <small>Selecionado</small>
+      </li>
+      <li>
+        <div class="seat sold"></div>
+        <small>Indisponivel</small>
+      </li>
+    </ul>
+    <div class="container">
+      <div class="screen">Tela</div>
+
+      <div class="row">
+        <div class="seat">A1</div>
+        <div class="seat">A2</div>
+        <div class="seat">A3</div>
+        <div class="seat">A4</div>
+        <div class="seat">A5</div>
+        <div class="seat">A6</div>
+        <div class="seat">A7</div>
+        <div class="seat">A8</div>
+      </div>
+
+      <div class="row">
+        <div class="seat">B1</div>
+        <div class="seat">B2</div>
+        <div class="seat">B3</div>
+        <div class="seat sold">B4</div>
+        <div class="seat sold">B5</div>
+        <div class="seat">B6</div>
+        <div class="seat">B7</div>
+        <div class="seat">B8</div>
+      </div>
+      <div class="row">
+        <div class="seat">C1</div>
+        <div class="seat">C2</div>
+        <div class="seat">C3</div>
+        <div class="seat">C4</div>
+        <div class="seat">C5</div>
+        <div class="seat">C6</div>
+        <div class="seat sold">C7</div>
+        <div class="seat sold">C8</div>
+      </div>
+      <div class="row">
+        <div class="seat">D1</div>
+        <div class="seat">D2</div>
+        <div class="seat">D3</div>
+        <div class="seat">D4</div>
+        <div class="seat">D5</div>
+        <div class="seat">D6</div>
+        <div class="seat">D7</div>
+        <div class="seat">D8</div>
+      </div>
+      <div class="row">
+        <div class="seat">E1</div>
+        <div class="seat">E2</div>
+        <div class="seat">E3</div>
+        <div class="seat sold">E4</div>
+        <div class="seat sold">E5</div>
+        <div class="seat">E6</div>
+        <div class="seat">E7</div>
+        <div class="seat">E8</div>
+      </div>
+      <div class="row">
+        <div class="seat">F1</div>
+        <div class="seat">F2</div>
+        <div class="seat">F3</div>
+        <div class="seat">F4</div>
+        <div class="seat sold">F5</div>
+        <div class="seat sold">F6</div>
+        <div class="seat sold">F7</div>
+        <div class="seat">F8</div>
+      </div>
+    </div>
+    <div class="payment-container">
+      <label> Selecione o Métododo de Pagamento:</label>
+      <select id="payment">
+        <option value = "debit">Cartao de Débito ▼ </option>
+        <option value = "credit" >Cartão de Crédito</option>
+        <option value = "voucher" >Voucher</option>
+        <option value = "pix" >Pix</option>
+      </select>
+    </select>
+    </div>
+
+    <p class="text">
+      Total da compra: <span id="count">0</span> Ingresso(s) R$<span id="total">0</span>
+    </p>
+    <button type="button" class="purchase-button">Finalizar Compra</button>
+  
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+function ready() {
+// Botão comprar
+const purchaseButton = document.getElementsByClassName("purchase-button")[0]
+purchaseButton.addEventListener("click", makePurchase)
+}
+function makePurchase() {
+  const paymentMethod = document.getElementById("payment").value;
+  const totalTickets = document.getElementById("count").innerText;
+
+  if (totalTickets === "0") {
+    swal({
+      title: "Erro",
+      text: "Você não selecionou seu(s) assento(s)",
+      icon: "error",
+    });
+  } else {  
+    if (paymentMethod === "debit") {
+      swal({
+        title:"Insira ou aproxime seu cartão!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Obrigado por comprar conosco!", {
+      icon: "success",
+    });
+  } else {
+    swal({
+      title: "Compra cancelada!",
+      icon: "error"
+        })
+        }
+      })
+  } else if (paymentMethod === "credit") {
+    swal({
+        title:"Insira ou aproxime seu cartão!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Obrigado por comprar conosco!", {
+      icon: "success",
+    });
+  } else {
+    swal({
+      title: "Compra cancelada!",
+      icon: "error"
+        })
+        }
+      })
+    } else if (paymentMethod === "voucher") {
+      swal("Insira o código do voucher:", {
+  content: "input",
+})
+.then((value) => {
+  swal({
+    title: `Código Válido: ${value}`,
+    icon: "success",})
+});
+} else if (paymentMethod === "pix") {
+    swal({
+        title:"Código PIX:",
+        text: "0000000000",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Obrigado por comprar conosco!", {
+      icon: "success",
+    });
+  } else {
+    swal({
+      title: "Compra cancelada!",
+      icon: "error"
+        })
+        }
+      })
+    }
+  }
+}
+
+
+
+document.addEventListener("DOMContentLoaded", ready);
+</script>
+
+<script src="assentos.js"></script>
+
+</body>
+</html>
